@@ -1,6 +1,10 @@
 
 package br.iesb.meuprograma.apresentacao;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class JFramePrincipal extends javax.swing.JFrame {
 
     /**
@@ -19,6 +23,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuSistema = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
@@ -29,6 +35,21 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Meu Programa");
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 481, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(jDesktopPane1);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         jMenuSistema.setMnemonic('S');
         jMenuSistema.setText("Sistema");
@@ -73,17 +94,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBarPrincipal);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -97,9 +107,23 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CadCondominos cadCondominos = new CadCondominos();
+        jDesktopPane1.add(cadCondominos);
+        
+        cadCondominos.setVisible(true);
+        cadCondominos.setMaximizable(true);
+        cadCondominos.setClosable(true);
+        try {
+            cadCondominos.setSelected(true);
+            cadCondominos.setMaximizable(true);
+            cadCondominos.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JFramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenuAjuda;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastro;
@@ -107,5 +131,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JMenu jMenuSistema;
+    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }
