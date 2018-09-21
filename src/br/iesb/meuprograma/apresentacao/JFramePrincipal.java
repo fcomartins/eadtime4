@@ -68,7 +68,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuCadastro.setMnemonic('C');
         jMenuCadastro.setText("Cadastro");
 
-        jMenuItem1.setText("Processos...");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setText("Condôminos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
