@@ -9,12 +9,12 @@ package br.iesb.meuprograma.apresentacao;
  *
  * @author fcoma
  */
-public class CadCondominos extends javax.swing.JInternalFrame {
+public class CadEntradaVisitante extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form listCondominos
      */
-    public CadCondominos() {
+    public CadEntradaVisitante() {
         initComponents();
     }
 
@@ -37,7 +37,7 @@ public class CadCondominos extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setTitle("Listar Condôminos");
+        setTitle("Listar Entrada de Visitantes");
         setToolTipText("");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -45,7 +45,7 @@ public class CadCondominos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Email", "Apartamento"
+                "Código", "Nome", "Apartamento", "Data"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -99,7 +99,7 @@ public class CadCondominos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EditCondomino edit = new EditCondomino();
+        EditEntradaVisitante edit = new EditEntradaVisitante();
         
         this.getDesktopPane().add(edit);
         edit.setVisible(true);

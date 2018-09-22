@@ -7,14 +7,14 @@ package br.iesb.meuprograma.apresentacao;
 
 /**
  *
- * @author fcoma
+ * @author Francisco
  */
-public class CadCondominos extends javax.swing.JInternalFrame {
+public class CadDependente extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form listCondominos
+     * Creates new form CadVisitante
      */
-    public CadCondominos() {
+    public CadDependente() {
         initComponents();
     }
 
@@ -33,25 +33,22 @@ public class CadCondominos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setTitle("Listar Condôminos");
-        setToolTipText("");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"123", "Anna", "101", "Filha"}
             },
             new String [] {
-                "Id", "Nome", "Email", "Apartamento"
+                "Código", "Nome", "Apartamento", "Parentesco"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jToolBar1.setRollover(true);
         jToolBar1.add(jPanel1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/add_obj.gif"))); // NOI18N
@@ -66,16 +63,15 @@ public class CadCondominos extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(jButton1);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/edit16_old.png"))); // NOI18N
-        jButton2.setText("Alterar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/edit16.png"))); // NOI18N
+        jButton2.setText("Editar");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
-        jToolBar1.add(jSeparator1);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/delete_edit.gif"))); // NOI18N
-        jButton3.setText("Excluir");
+        jButton3.setText("Remover");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -86,11 +82,6 @@ public class CadCondominos extends javax.swing.JInternalFrame {
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
         jToolBar1.add(jButton4);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
@@ -99,17 +90,15 @@ public class CadCondominos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EditCondomino edit = new EditCondomino();
+        EditDependente editDependente = new EditDependente();
         
-        this.getDesktopPane().add(edit);
-        edit.setVisible(true);
-        edit.setClosable(true);
+        this.getDesktopPane().add(editDependente);
+        editDependente.setVisible(true);
+        editDependente.setClosable(true);
+        editDependente.setMaximizable(true);
+       
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -119,7 +108,6 @@ public class CadCondominos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
