@@ -1,9 +1,13 @@
-
 package br.iesb.meuprograma.apresentacao;
 
+import br.iesb.meuprograma.apresentacao.bundle.IesbBundle;
+import br.iesb.meuprograma.apresentacao.table.TreeCellRenderer;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class JFramePrincipal extends javax.swing.JFrame {
 
@@ -12,6 +16,34 @@ public class JFramePrincipal extends javax.swing.JFrame {
      */
     public JFramePrincipal() {
         initComponents();
+        montarMenuLateral();
+    }
+
+    private void montarMenuLateral() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("br/iesb/meuprograma/apresentacao/bundle/Bundle");
+
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.raiz.text"));
+        DefaultMutableTreeNode child;
+
+        //child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.registroObras.text"));
+        //root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.condominos.text"));
+        root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.visitante.text"));
+        root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.entradaVisitante.text"));
+        root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.dependentes.text"));
+        root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.reservaEspaco.text"));
+        root.add(child);
+        child = new DefaultMutableTreeNode(bundle.getString("PrincipalCad.jTree.logout.text"));
+        root.add(child);
+        DefaultTreeModel dtm = new DefaultTreeModel(root);
+
+        jTree1.setModel(dtm);
+        //jTree.expandRow(1); // Expand children to illustrate leaf icons
+        jTree1.setCellRenderer(new TreeCellRenderer());
     }
 
     /**
@@ -25,6 +57,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuSistema = new javax.swing.JMenu();
         jMenuItemSair = new javax.swing.JMenuItem();
@@ -36,18 +71,43 @@ public class JFramePrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Meu Programa");
 
+        jDesktopPane1.setBackground(javax.swing.UIManager.getDefaults().getColor("window"));
+
+        jLabel1.setText("Olá aluno, seu último acesso foi em...");
+
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 481, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(433, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jDesktopPane1);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(155, 275));
+        jScrollPane1.setRequestFocusEnabled(false);
+
+        jTree1.setRowHeight(24);
+        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                jTree1ValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTree1);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
 
         getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
@@ -110,7 +170,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CadCondominos cadCondominos = new CadCondominos();
         jDesktopPane1.add(cadCondominos);
-        
+
         cadCondominos.setVisible(true);
         cadCondominos.setMaximizable(true);
         cadCondominos.setClosable(true);
@@ -123,8 +183,39 @@ public class JFramePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+        try {
+            Object node = evt.getPath().getLastPathComponent();
+            evt.getNewLeadSelectionPath();
+            String menu = null;
+            if (evt.isAddedPath()) {
+                menu = node.toString();
+
+                // Abre a tela de Registro de Obras
+                if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.condominos.text"))) {
+                    CadCondominos cadCondominos = new CadCondominos();
+                    jDesktopPane1.add(cadCondominos);
+                    
+                    cadCondominos.setClosable(true);
+                    cadCondominos.setMaximum(true);
+                    cadCondominos.setVisible(true);
+                }
+
+                if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.logout.text"))) {
+                    int msg = JOptionPane.showOptionDialog(this, IesbBundle.getBundle("generic.fecharSistema.msg"), "Fechar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                    if (msg == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JFramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }     // TODO add your handling code here:
+    }//GEN-LAST:event_jTree1ValueChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenuAjuda;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastro;
@@ -132,6 +223,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSair;
     private javax.swing.JMenuItem jMenuItemSobre;
     private javax.swing.JMenu jMenuSistema;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
