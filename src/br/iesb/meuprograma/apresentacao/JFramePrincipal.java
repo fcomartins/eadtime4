@@ -84,7 +84,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +196,20 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     CadCondominos cadCondominos = new CadCondominos();
                     jDesktopPane1.add(cadCondominos);
                     
-                    cadCondominos.setClosable(true);
                     cadCondominos.setMaximum(true);
+                    cadCondominos.setClosable(true);
                     cadCondominos.setVisible(true);
                 }
-
+                
+                if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.entradaVisitante.text"))) {
+                    CadEntradaVisitante cadEntrada = new CadEntradaVisitante();
+                    jDesktopPane1.add(cadEntrada);
+                    
+                    cadEntrada.setClosable(true);
+                    cadEntrada.setMaximum(true);
+                    cadEntrada.setVisible(true);
+                }
+                
                 if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.logout.text"))) {
                     int msg = JOptionPane.showOptionDialog(this, IesbBundle.getBundle("generic.fecharSistema.msg"), "Fechar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                     if (msg == JOptionPane.YES_OPTION) {

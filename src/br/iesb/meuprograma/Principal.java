@@ -15,11 +15,11 @@ public class Principal {
             @Override
             public void run() {
                 
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+//                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 
                 JFramePrincipal jFramePrincipal = new JFramePrincipal();
                 jFramePrincipal.setVisible(true);
