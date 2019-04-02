@@ -70,7 +70,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="contentType" type="java.lang.String" value="text/html" noResource="true"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&#xa;&lt;center&gt;&lt;span style=&quot;font-weight: bold; font-size:16px&quot;&gt;MEU PROGRAMA&lt;/span&gt;&lt;/center&gt;&#xa;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&#xa;Creative Commons Attribution 3.0 License&#xa;&lt;br/&gt;&#xa;&#xa9;2013 Instituto de Ensino Superior de Bras&#xed;lia" noResource="true"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;br/&gt;&#xa;&lt;center&gt;&lt;span style=&quot;font-weight: bold; font-size:16px&quot;&gt;Sistema Condominial&lt;/span&gt;&lt;/center&gt;&#xa;&lt;br/&gt;&lt;br/&gt;&#xa;Alunos:&lt;br/&gt;&#xa;Anna Rodrigues&lt;br/&gt;&#xa;Carlos Rodrigues&lt;br/&gt;&#xa;Francisco Martins&lt;br/&gt;&#xa;Creative Commons Attribution 3.0 License&#xa;&lt;br/&gt;&#xa;&#xa9;2013 Instituto de Ensino Superior de Bras&#xed;lia" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

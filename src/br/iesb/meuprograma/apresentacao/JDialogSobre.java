@@ -38,7 +38,7 @@ public class JDialogSobre extends javax.swing.JDialog {
 
         jTextPane1.setEditable(false);
         jTextPane1.setContentType("text/html"); // NOI18N
-        jTextPane1.setText("<html>\n<br/><br/><br/><br/><br/>\n<center><span style=\"font-weight: bold; font-size:16px\">MEU PROGRAMA</span></center>\n<br/><br/><br/><br/>\nCreative Commons Attribution 3.0 License\n<br/>\n©2013 Instituto de Ensino Superior de Brasília"); // NOI18N
+        jTextPane1.setText("<html>\n<br/>\n<center><span style=\"font-weight: bold; font-size:16px\">Sistema Condominial</span></center>\n<br/><br/>\nAlunos:<br/>\nAnna Rodrigues<br/>\nCarlos Rodrigues<br/>\nFrancisco Martins<br/>\nCreative Commons Attribution 3.0 License\n<br/>\n©2013 Instituto de Ensino Superior de Brasília"); // NOI18N
         jScrollPane2.setViewportView(jTextPane1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());

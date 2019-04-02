@@ -5,9 +5,18 @@
  */
 package br.iesb.meuprograma.apresentacao;
 
+import br.iesb.meuprograma.entidades.Dependente;
+import br.iesb.meuprograma.negocio.DependenteBO;
+import br.iesb.meuprograma.negocio.NegocioException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author Francisco
+ * @author Carlos Rodrigues
  */
 public class CadDependente extends javax.swing.JInternalFrame {
 
@@ -35,6 +44,25 @@ public class CadDependente extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+
+        setTitle("Listar Dedendentes");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,6 +96,11 @@ public class CadDependente extends javax.swing.JInternalFrame {
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/delete_edit.gif"))); // NOI18N
@@ -75,6 +108,11 @@ public class CadDependente extends javax.swing.JInternalFrame {
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/exit16.png"))); // NOI18N
@@ -91,14 +129,95 @@ public class CadDependente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         EditDependente editDependente = new EditDependente();
-        
+
         this.getDesktopPane().add(editDependente);
         editDependente.setVisible(true);
         editDependente.setClosable(true);
         editDependente.setMaximizable(true);
-       
-        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        DependenteBO bo = new DependenteBO();
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            List<Dependente> lista = bo.listar();
+            for (Dependente dependente : lista) {
+                modelo.addRow(new Object[]{
+                    dependente.getId(),
+                    dependente.getNome(),
+                    dependente.getCpf(),
+                    dependente.getApartamento()
+                });
+            }
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTable1.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um Dependente para alterar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Dependente dependente = new Dependente();
+        dependente.setId(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+
+        DependenteBO bo = new DependenteBO();
+
+        try {
+            dependente = bo.consultar(dependente.getId());
+
+            EditCondomino edit = new EditCondomino();
+            this.getDesktopPane().add(edit);
+            edit.setVisible(true);
+            edit.setClosable(true);
+            formInternalFrameOpened(null);
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (jTable1.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um Dependente para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja remover o Dependente?", "Confirmação", JOptionPane.QUESTION_MESSAGE);
+        if (opcao == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        Dependente condomino = new Dependente();
+        condomino.setId(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+
+        DependenteBO bo = new DependenteBO();
+        try {
+            bo.excluir(condomino);
+            formInternalFrameOpened(null);
+            JOptionPane.showMessageDialog(this, "Dependente excluido com sucesso!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }  // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -35,7 +35,7 @@
                 <Property name="text" type="java.lang.String" value="Cond&#xf4;minos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCadCondominioPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -156,7 +156,7 @@
                 <Property name="rowHeight" type="int" value="24"/>
               </Properties>
               <Events>
-                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="jTree1ValueChanged"/>
+                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="jTreeMenuLateralValueChanged"/>
               </Events>
             </Component>
           </SubComponents>

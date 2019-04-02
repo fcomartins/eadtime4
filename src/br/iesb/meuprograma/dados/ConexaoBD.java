@@ -8,8 +8,8 @@ public final class ConexaoBD {
 
     public static Connection getConexao() throws DadosException {
         try {
-            Class.forName("<driver>");
-            return DriverManager.getConnection("jdbc:<tipo>:<url>", "usuario", "senha");
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/CONDOMINIO", "root", "12345678");
         } catch (ClassNotFoundException e) {
             throw new DadosException("Erro ao carregar JDBC: " + e.getMessage());
         } catch (SQLException e) {

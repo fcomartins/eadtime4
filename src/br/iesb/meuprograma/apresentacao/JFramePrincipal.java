@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+/**
+ * Classe principal de acesso ao sistema.
+ * @author Francisco Martins
+ */
 public class JFramePrincipal extends javax.swing.JFrame {
 
     /**
@@ -102,7 +106,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jTree1.setRowHeight(24);
         jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                jTree1ValueChanged(evt);
+                jTreeMenuLateralValueChanged(evt);
             }
         });
         jScrollPane1.setViewportView(jTree1);
@@ -132,7 +136,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuItem1.setText("Condôminos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemCadCondominioPerformed(evt);
             }
         });
         jMenuCadastro.add(jMenuItem1);
@@ -167,7 +171,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemCadCondominioPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadCondominioPerformed
         CadCondominos cadCondominos = new CadCondominos();
         jDesktopPane1.add(cadCondominos);
 
@@ -181,9 +185,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         } catch (PropertyVetoException ex) {
             Logger.getLogger(JFramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemCadCondominioPerformed
 
-    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+    private void jTreeMenuLateralValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeMenuLateralValueChanged
         try {
             Object node = evt.getPath().getLastPathComponent();
             evt.getNewLeadSelectionPath();
@@ -209,7 +213,24 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     cadEntrada.setMaximum(true);
                     cadEntrada.setVisible(true);
                 }
-                
+                               
+                if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.visitante.text"))) {
+                    CadVisitante cadVisitantes = new CadVisitante();
+                    jDesktopPane1.add(cadVisitantes);
+                    
+                    cadVisitantes.setClosable(true);
+                    cadVisitantes.setMaximum(true);
+                    cadVisitantes.setVisible(true);
+                }  
+                if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.reservaEspaco.text"))) {
+                    CadReserva cadReserva = new CadReserva();
+                    jDesktopPane1.add(cadReserva);
+                    
+                    cadReserva.setClosable(true);
+                    cadReserva.setMaximum(true);
+                    cadReserva.setVisible(true);
+                }
+               
                 if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.dependentes.text"))) {
                     CadDependente cadVisitantes = new CadDependente();
                     jDesktopPane1.add(cadVisitantes);
@@ -218,7 +239,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     cadVisitantes.setMaximum(true);
                     cadVisitantes.setVisible(true);
                 }
-
 
                 if (menu.equals(IesbBundle.getBundle("PrincipalCad.jTree.logout.text"))) {
                     int msg = JOptionPane.showOptionDialog(this, IesbBundle.getBundle("generic.fecharSistema.msg"), "Fechar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
@@ -230,7 +250,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(JFramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }     // TODO add your handling code here:
-    }//GEN-LAST:event_jTree1ValueChanged
+    }//GEN-LAST:event_jTreeMenuLateralValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;

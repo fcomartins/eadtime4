@@ -5,6 +5,15 @@
  */
 package br.iesb.meuprograma.apresentacao;
 
+import br.iesb.meuprograma.entidades.Condomino;
+import br.iesb.meuprograma.negocio.CondominoBO;
+import br.iesb.meuprograma.negocio.NegocioException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author fcoma
@@ -31,18 +40,35 @@ public class CadCondominos extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnInserir = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
 
         setTitle("Listar Condôminos");
         setToolTipText("");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"1", "dfa", "sdf", null}
             },
             new String [] {
                 "Id", "Nome", "Email", "Apartamento"
@@ -54,69 +80,165 @@ public class CadCondominos extends javax.swing.JInternalFrame {
 
         jToolBar1.add(jPanel1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/add_obj.gif"))); // NOI18N
-        jButton1.setText("Inserir");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/add_obj.gif"))); // NOI18N
+        btnInserir.setText("Inserir");
+        btnInserir.setFocusable(false);
+        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInserir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInserirActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnInserir);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/edit16_old.png"))); // NOI18N
-        jButton2.setText("Alterar");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/edit16_old.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.setFocusable(false);
+        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnAlterar);
         jToolBar1.add(jSeparator1);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/delete_edit.gif"))); // NOI18N
-        jButton3.setText("Excluir");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/exit16.png"))); // NOI18N
-        jButton4.setText("Fechar");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/delete_edit.gif"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setFocusable(false);
+        btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton4);
+        jToolBar1.add(btnExcluir);
+
+        btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/exit16.png"))); // NOI18N
+        btnFechar.setText("Fechar");
+        btnFechar.setFocusable(false);
+        btnFechar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFechar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFechar);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         EditCondomino edit = new EditCondomino();
-        
+
         this.getDesktopPane().add(edit);
         edit.setVisible(true);
         edit.setClosable(true);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        formInternalFrameOpened(null);
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        CondominoBO bo = new CondominoBO();
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            List<Condomino> lista = bo.listar();
+            for (Condomino condomino : lista) {
+                modelo.addRow(new Object[]{
+                    condomino.getId(),
+                    condomino.getNome(),
+                    condomino.getCpf(),
+                    condomino.getEmail(),
+                    condomino.getApartamento()
+                });
+            }
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (jTable1.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um Condômino para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja remover o condômino?", "Confirmação", JOptionPane.QUESTION_MESSAGE);
+        if (opcao == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        Condomino condomino = new Condomino();
+        condomino.setId(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+
+        CondominoBO bo = new CondominoBO();
+        try {
+            bo.excluir(condomino);
+            formInternalFrameOpened(null);
+            JOptionPane.showMessageDialog(this, "Condômino excluido com sucesso!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (jTable1.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um Condômino para alterar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Condomino condomino = new Condomino();
+        condomino.setId(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+
+        CondominoBO bo = new CondominoBO();
+
+        try {
+            condomino = bo.consultar(condomino.getId());
+
+            EditCondomino edit = new EditCondomino();
+            edit.entityToView(condomino);
+            this.getDesktopPane().add(edit);
+            edit.setVisible(true);
+            edit.setClosable(true);
+            formInternalFrameOpened(null);
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadCondominos.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getCause() == null) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnInserir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
