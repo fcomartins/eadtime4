@@ -25,6 +25,13 @@ public class Condomino {
     private String celular;
     private String vaga;
 
+    public Condomino() {
+    }
+
+    public Condomino(Integer id) {
+        this.id = id;
+    }
+    
     public Integer getId() {
         return id;
     }

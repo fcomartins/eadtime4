@@ -28,30 +28,29 @@ public class DependenteDAO implements DAO<Dependente> {
         Connection conexao = ConexaoBD.getConexao();
 
         StringBuilder sql = new StringBuilder("INSERT INTO ");
-        sql.append(TABLE_NAME + "(");
+        sql.append(TABLE_NAME + " (");
         sql.append("APARTAMENTO, ");
         sql.append("NOME, ");
         sql.append("CPF, ");
         sql.append("RG, ");
         sql.append("DATA_NASCIMENTO, ");
         sql.append("SEXO, ");
-        sql.append("CONDOMINO");
+        sql.append("ID_CONDOMINO");
         sql.append(")");
         sql.append("VALUES (?,?,?,?,?,?,?)");
 
         try {
             PreparedStatement comando = conexao.prepareStatement(sql.toString());
 
-            int i = 0;
+            int i = 1;
 
-            comando.setInt(i++, entidade.getId());
-            comando.setString(i++, entidade.getNome());
             comando.setString(i++, entidade.getApartamento());
-            comando.setString(i++, entidade.getCondomino());
+            comando.setString(i++, entidade.getNome());
             comando.setString(i++, entidade.getCpf());
             comando.setString(i++, entidade.getRg());
             comando.setString(i++, entidade.getDataNascimento());
             comando.setString(i++, entidade.getSexo());
+            comando.setInt(i++, entidade.getIdCondomino() == null ? 1 : entidade.getIdCondomino());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -71,20 +70,21 @@ public class DependenteDAO implements DAO<Dependente> {
         sql.append("RG = ?, ");
         sql.append("DATA_NASCIMENTO = ?, ");
         sql.append("SEXO = ?, ");
-        sql.append("CONDOMINO = ? ");
+        sql.append("ID_CONDOMINO = ? ");
         sql.append("WHERE ID = ?");
 
         try {
             PreparedStatement comando = conexao.prepareStatement(sql.toString());
 
-            int i = 0;
+            int i = 1;
 
             comando.setString(i++, entidade.getApartamento());
             comando.setString(i++, entidade.getNome());
             comando.setString(i++, entidade.getCpf());
-            comando.setString(i++, entidade.getRg());
+            comando.setString(i++, entidade.getRg());            
+            comando.setString(i++, entidade.getDataNascimento());
             comando.setString(i++, entidade.getSexo());
-            comando.setString(i++, entidade.getCondomino());
+            comando.setInt(i++, entidade.getIdCondomino());
             comando.setInt(i++, entidade.getId());
             comando.executeUpdate();
 
@@ -171,6 +171,7 @@ public class DependenteDAO implements DAO<Dependente> {
     private Dependente rsToObject(ResultSet rs) throws SQLException {
         Dependente dependente = new Dependente();
 
+        dependente.setId(rs.getInt("ID"));
         dependente.setApartamento(rs.getString("APARTAMENTO"));
         dependente.setNome(rs.getString("NOME"));
         dependente.setCpf(rs.getString("CPF"));
