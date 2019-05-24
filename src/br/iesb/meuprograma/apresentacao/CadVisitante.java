@@ -8,6 +8,7 @@ package br.iesb.meuprograma.apresentacao;
 import br.iesb.meuprograma.entidades.Visitante;
 import br.iesb.meuprograma.negocio.NegocioException;
 import br.iesb.meuprograma.negocio.VisitanteBO;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,35 +47,39 @@ public class CadVisitante extends javax.swing.JInternalFrame {
         jButtonFechar = new javax.swing.JButton();
 
         setTitle("Listar Visitantes");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"123", "Anna", "101", "22/09/2018 14h:00min"},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
                 "Código", "Nome", "Apartamento", "Data/Hora"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(20);
+        }
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -110,11 +115,6 @@ public class CadVisitante extends javax.swing.JInternalFrame {
         jButtonExcluir.setFocusable(false);
         jButtonExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonExcluirActionPerformed(evt);
-            }
-        });
         jToolBar1.add(jButtonExcluir);
 
         jButtonFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/iesb/meuprograma/imagens/exit16.png"))); // NOI18N
@@ -152,14 +152,16 @@ public class CadVisitante extends javax.swing.JInternalFrame {
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
             List<Visitante> lista = bo.listar();
-            for (Visitante visitante : lista) {
+            for (Visitante visitante:lista) {
                 modelo.addRow(new Object[]{
                     visitante.getId(),
-                    visitante.getNome()
+                    visitante.getNome(),
+                    visitante.getApartamento(),
+                    visitante.getDataNasc()
                   
                 });
             }
-        } catch (NegocioException ex) {
+                    } catch (NegocioException ex) {
             Logger.getLogger(CadVisitante.class.getName()).log(Level.SEVERE, null, ex);
             if (ex.getCause() == null) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -167,9 +169,10 @@ public class CadVisitante extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
+       
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
          if (jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um Visitante para excluir", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -197,9 +200,9 @@ public class CadVisitante extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, ex.getCause().getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    }                                          
 
-    }//GEN-LAST:event_jButtonExcluirActionPerformed
+    }                                              
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
@@ -233,7 +236,7 @@ public class CadVisitante extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
-        // TODO add your handling code here:
+     // jButtonFechar.setEnabled(false);
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
 

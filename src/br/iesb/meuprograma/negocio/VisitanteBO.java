@@ -38,6 +38,10 @@ public class VisitanteBO implements BO<Visitante> {
             throw new NegocioException("Inserir NOME completo");
 
         }
+        if (entidade.getApartamento().isEmpty()){
+            throw new NegocioException (" Campo Apartamento é obrigatório");
+            
+        }
         if (entidade.getRg().isEmpty()) {
             throw new NegocioException("Campo RG é obrigatório");
         }
@@ -57,7 +61,7 @@ public class VisitanteBO implements BO<Visitante> {
     @Override
     public void inserir(Visitante entidade) throws NegocioException {
         validar(entidade);
-        validar(entidade);
+       // validar(entidade);
         try {
             getEditVisitanteDAO().inserir(entidade);
         } catch (DadosException ex) {
@@ -119,7 +123,7 @@ public class VisitanteBO implements BO<Visitante> {
            throw new NegocioException(ex.getMessage(), ex);
         }
         return lista;
-
+       
     }
 
      private EditVisitanteDAO getEditVisitanteDAO() {

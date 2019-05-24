@@ -5,7 +5,6 @@
  */
 package br.iesb.meuprograma.apresentacao;
 
-import br.iesb.meuprograma.entidades.Condomino;
 import br.iesb.meuprograma.entidades.Dependente;
 import br.iesb.meuprograma.negocio.DependenteBO;
 import br.iesb.meuprograma.negocio.NegocioException;
@@ -68,12 +67,8 @@ public class EditDependente extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Condômino:");
 
+        jComboBoxCondomino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxCondomino.setToolTipText("");
-        jComboBoxCondomino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCondominoActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Nome:");
 
@@ -252,9 +247,7 @@ public class EditDependente extends javax.swing.JInternalFrame {
         Dependente dependente = new Dependente();
         
         dependente.setApartamento(jTextFieldApartamento.getText());
-        if(jComboBoxCondomino.getSelectedItem() != null) {
-            dependente.setIdCondomino(((Condomino) jComboBoxCondomino.getSelectedItem()).getId());  
-        }
+        dependente.setCondomino(jComboBoxCondomino.getSelectedItem().toString());
         dependente.setCpf(jTextFieldCpf.getText());
         dependente.setNome(jTextFieldNome.getText());
         dependente.setRg(jTextFieldRg.getText());
@@ -282,16 +275,12 @@ public class EditDependente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldApartamentoActionPerformed
 
-    private void jComboBoxCondominoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCondominoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxCondominoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<Condomino> jComboBoxCondomino;
+    private javax.swing.JComboBox<String> jComboBoxCondomino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
