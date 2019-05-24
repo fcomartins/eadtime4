@@ -2,6 +2,13 @@ package br.iesb.meuprograma.negocio;
 
 import java.util.List;
 
+/**
+ * Interface que estabelece os métodos obrigatórios de persistência
+ *
+ * @author Francisco Martins
+ * @matricula 16286101044
+ * @param <T>
+ */
 public interface BO<T> {
 
     void validar(T entidade) throws NegocioException;

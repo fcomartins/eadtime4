@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * Classe responsável por configurar o drive e conexão com o banco de dados
+ * PostgresSQL
+ *
+ * @author Francisco Martins
+ * @matricula 16286101044
+ */
 public final class ConexaoBD {
 
     public static Connection getConexao() throws DadosException {
