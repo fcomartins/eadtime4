@@ -5,6 +5,8 @@
  */
 package br.iesb.meuprograma.apresentacao;
 
+import br.iesb.meuprograma.entidades.EntradaVisitante;
+
 /**
  *
  * @author fcoma
