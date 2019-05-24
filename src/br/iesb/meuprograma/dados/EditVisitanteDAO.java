@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class EditVisitanteDAO implements DAO<Visitante>{
   private static EditVisitanteDAO uniqueInstance;
-  private final String TABLE_NAME = "SCO_VISITANTE";
+  private final String TABLE_NAME = "public.visitante";
   List <Visitante> list = new ArrayList<>();
   
   public  static  EditVisitanteDAO  getInstance () {
@@ -41,18 +41,23 @@ public class EditVisitanteDAO implements DAO<Visitante>{
         Connection conexao = ConexaoBD.getConexao ();
 
         StringBuilder sql =  new  StringBuilder ( " INSERT INTO " );
-        sql.append ( TABLE_NAME  +  " ( " );
-        sql.append ( " NOME " );
-        sql.append ( " CPF " );
-        sql.append ( " RG " );
-        sql.append ( " DATA_NASCIMENTO " );
+        sql.append ( TABLE_NAME +  " ( " );
+        sql.append ( " ID, " );
+        sql.append ( " APARTAMENTO, " );
+        sql.append ( " NOME, " );
+        sql.append ( " CPF, " );
+        sql.append ( " RG, " );
+        sql.append ( " DATA_NASCIMENTO, " );
         sql.append ( " SEXO " );
         sql.append ( " ) " );
-        sql.append ( " VALUES (?,?,?,?,?) " );
+        sql.append ( " VALUES (DEFAULT,?,?,?,?,?,?) " );
 
+        //System.out.println(sql);
+        
         try{
             PreparedStatement ps = conexao.prepareStatement(sql.toString());
             int index = 1;
+            ps.setString (index++, entidade.getApartamento ());
             ps.setString (index++, entidade.getNome ());
             ps.setString (index ++ , entidade . getCpf ());
             ps.setString (index ++ , entidade . getRg ());
@@ -74,18 +79,21 @@ public class EditVisitanteDAO implements DAO<Visitante>{
 
          StringBuilder sql =  new  StringBuilder ( " INSERT INTO " );
         sql.append ( TABLE_NAME  +  " ( " );
-        sql.append ( " NOME " );
-        sql.append ( " CPF " );
-        sql.append ( " RG " );
-        sql.append ( " DATA_NASCIMENTO " );
+        sql.append ( " NOME, " );
+         sql.append ( " APARTAMENTO, " );
+        sql.append ( " CPF, " );
+        sql.append ( " RG, " );
+        sql.append ( " DATA_NASCIMENTO, " );
         sql.append ( " SEXO " );
         sql.append ( " WHEREN ID = ?");
-      
+       // System.out.println(sql);
 
         try{
             PreparedStatement ps = conexao.prepareStatement(sql.toString());
             int index = 1;
+           
             ps.setString (index++, entidade.getNome ());
+            ps.setString (index++, entidade.getApartamento ());
             ps.setString (index ++ , entidade . getCpf ());
             ps.setString (index ++ , entidade . getRg ());
             ps.setDate (index ++ , Date . valueOf (entidade . getDataNasc ()));
@@ -130,9 +138,10 @@ public class EditVisitanteDAO implements DAO<Visitante>{
         sql . append ( " SELECT * FROM " );
         sql . append ( TABLE_NAME );
         sql . append ( " WHERE ID =? " );
+       
         
         try {
-            PreparedStatement ps = conexao . prepareStatement (sql . toString ());
+            PreparedStatement ps = conexao . prepareStatement (sql.toString ());
              int index =  1 ;
             ps . setInt (index ++ , id);
 
@@ -152,44 +161,51 @@ public class EditVisitanteDAO implements DAO<Visitante>{
     }
 
     @Override
-     public List<Visitante> listar () throws  DadosException {
-        Connection conexao =  ConexaoBD .getConexao();
+     public List<Visitante> listar() throws  DadosException {
+        Connection conexao =  ConexaoBD.getConexao();
 
-        List < Visitante > lista =  new  ArrayList <> ();
+        List<Visitante> lista = new ArrayList<>();
         
-        StringBuilder sql =  new  StringBuilder ();
-        sql . append ( " SELECT * FROM " );
-        sql . append ( TABLE_NAME );
-        
+        StringBuilder sql =  new StringBuilder();
+        sql.append( " SELECT * FROM " );
+        sql.append( TABLE_NAME );
+       
+               
         try {
-            Statement ps = conexao . createStatement ();
+            Statement ps = conexao.createStatement();
 
-            ResultSet rs = ps . executeQuery (sql . toString ());
+            ResultSet rs = ps.executeQuery(sql.toString());
             
-            while (rs . next ()) {
-                lista . add (rsToObject (rs));
+               
+            
+            while (rs.next()) {
+                lista.add(rsToObject(rs));
+                
             }
             
-            ps . close();
+            ps.close();
 
         } catch ( SQLException ex) {
-            throw  new  DadosException ( " Erro ao excluir visitante. Motivo: "  + ex . getMessage ());
+            throw  new  DadosException ( " Erro ao excluir visitante. Motivo: "  + ex.getMessage ());
         }
       
         return lista;
     }
-
+    
+     
     
     private  Visitante  rsToObject (ResultSet rs) throws SQLException {
         Visitante visitante =  new Visitante ();
         
-   
-        visitante .setNome (rs . getString ( " NOME " ));
-        visitante .setCpf (rs . getString ( " CPF " ));
-        visitante .setRg (rs . getString ( " RG " ));
-        visitante.setData (rs.getTimestamp("DATA_NASCIMENTO").toLocalDateTime().toLocalDate());
+        visitante .setId (rs . getInt ( " ID, " ));
+        visitante .setApartamento (rs . getString ( " APARTAMENTO, " ));
+        visitante .setNome (rs . getString ( " NOME, " ));
+        visitante .setCpf (rs . getString ( " CPF, " ));
+        visitante .setRg (rs . getString ( " RG, " ));
+        visitante.setData (rs.getTimestamp("DATA_NASCIMENTO,").toLocalDateTime().toLocalDate());
         visitante.setSexo(rs.getString("SEXO"));
         return visitante;
+        
     }
 
   

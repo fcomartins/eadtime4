@@ -13,7 +13,7 @@ public class Dependente {
 
     private Integer id;
     private String apartamento;
-    private Integer idCondomino;
+    private String condomino;
     private String cpf;
     private String nome;
     private String rg;
@@ -36,12 +36,12 @@ public class Dependente {
         this.apartamento = apartamento;
     }
 
-    public Integer getIdCondomino() {
-        return idCondomino;
+    public String getCondomino() {
+        return condomino;
     }
 
-    public void setIdCondomino(Integer idCondomino) {
-        this.idCondomino = idCondomino;
+    public void setCondomino(String condomino) {
+        this.condomino = condomino;
     }
 
     public String getCpf() {

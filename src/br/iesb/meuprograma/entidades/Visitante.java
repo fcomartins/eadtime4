@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class Visitante {
 
     private int id;
+    private String apartamento;
     private String nome;
     private String cpf;
     private String rg;
@@ -34,6 +35,13 @@ public class Visitante {
 
     public void setId(int id) {
         this.id = id;
+    }
+      public String getApartamento() {
+        return apartamento;
+    }
+
+    public void setApartamento(String apartamento) {
+        this.apartamento = apartamento;
     }
 
     public String getNome() {
