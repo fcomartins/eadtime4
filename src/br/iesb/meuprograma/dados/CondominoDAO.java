@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe responsável pela persistência dos dados na tabela do banco de dados.
+ * Classe responsável pela persistência dos dados dos condôminos na tabela do
+ * banco de dados.
  *
  * @author Francisco Martins
  * @matricula 16286101044

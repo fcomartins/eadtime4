@@ -13,8 +13,12 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
+ * Tela de edição dos registros cadastrados no banco de dados. Interface de
+ * acesso do usuário as funcionalidades de inserção, alteração e exclusão de
+ * Condôminos.
  *
  * @author Francisco Martins
+ * @matricula 16286101044
  */
 public class EditCondomino extends javax.swing.JInternalFrame {
 
